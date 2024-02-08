@@ -1,0 +1,12 @@
+#clock{
+
+    font-family: Arial,sans-serif;
+    font-size: 48px;
+    text-align: center;
+    box-sizing: border-box;
+}
+h1{
+    text-align: center;
+    color: blueviolet;
+    align-items: center;
+}

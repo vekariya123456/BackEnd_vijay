@@ -100,39 +100,39 @@ db.sales_orderDetail.insertMany([
 ]);
 
 
-db.salesOrder.aggregate([
-    {
-        $lookup: {
-               from: "client_masters",
-               localField: "ClientNo",
-               foreignField: "ClientNo",
-               as: "Client"
-             }
-    },
-    {
-        $lookup: {
-               from: "salesman_master",
-               localField: "SalesmanNo",
+// db.salesOrder.aggregate([
+//     {
+//         $lookup: {
+//                from: "client_masters",
+//                localField: "ClientNo",
+//                foreignField: "ClientNo",
+//                as: "Client"
+//              }
+//     },
+//     {
+//         $lookup: {
+//                from: "salesman_master",
+//                localField: "SalesmanNo",
 
 
-foreignField: "SalesmanNo",
-               as: "Salesman"
-             }
-    },
-    {
-        $lookup: {
-               from: "sales_orderDetail",
-               localField: "OrderNo",
-               foreignField: "OrderNo",
-               as: "Order"
-             }
-    },
-    {
-        $lookup: {
-               from: "product_masters",
-               localField: "Order.ProductNo",
-               foreignField: "ProductNo",
-               as: "No"
-             }
-    }
-    ]);
+// foreignField: "SalesmanNo",
+//                as: "Salesman"
+//              }
+//     },
+//     {
+//         $lookup: {
+//                from: "sales_orderDetail",
+//                localField: "OrderNo",
+//                foreignField: "OrderNo",
+//                as: "Order"
+//              }
+//     },
+//     {
+//         $lookup: {
+//                from: "product_masters",
+//                localField: "Order.ProductNo",
+//                foreignField: "ProductNo",
+//                as: "No"
+//              }
+//     }
+//     ]);

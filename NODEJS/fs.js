@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 // const {add, product} = require("/.basic.js");
-//const {product} = require('./basic.js');
+// const {product} = require('./basic.js');
 
 // console.log(add(5,3));
 
@@ -34,21 +34,21 @@ const fs = require("fs");
 //     console.log(data);   
 // });
 
-let data = fs.readFileSync('abc.txt','utf-8');
-console.log(data);
+// let data = fs.readFileSync('abc.txt','utf-8');
+// console.log(data);
 // console.log('Addition is: ',add(15,13));
-// // let t2 = performance.now();
+// let t2 = performance.now();
 // console.log('Time Difference is: ',t2-t1);
 
 
 
 
 
-//Write Method
+// Write Method
 // let txt = `#include <stdio.h>
 // int main(){
 //     // printf("Welcome  to skillQode");
-//     printf("Learning NodeJs);
+//     printf("Learning NodeJs");
 // }`;
 
 // fs.writeFile("basic.c",txt,(err,data)=>{

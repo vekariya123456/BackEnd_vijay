@@ -16,7 +16,7 @@ server.patch('/',(req,res) => {
    res.sendFile(path.join(__dirname,'abc.txt'));
 });
 server.delete('/',(req,res) => {
-   res.sendStatus(201);
+   res.sendStatus(404);
 })
 
 

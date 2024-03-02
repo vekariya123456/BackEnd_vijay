@@ -11,6 +11,9 @@ app.use(morgan('dev'));
 const productRoutes = require('./Routes/product.routes');
 app.use('/products',productRoutes);
 
+const userRoutes = require('./Routes/user.routes');
+app.use('/user',userRoutes);
+
 app.listen(port, () => {
     console.log(`server start at http:/localhost:2000`);
 });

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "vijay": "nodemon app.js"
+    "vijay": "nodemon End_Point.js"
   },
   "author": "",
   "license": "ISC",

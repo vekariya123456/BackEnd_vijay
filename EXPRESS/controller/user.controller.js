@@ -22,7 +22,7 @@ exports.addUser = async (req,res) => {
         console.log(error);
         res.status(500).json({message: 'Internal server error'});
     }
-}
+};
 
 exports.getAllUsers = async (req,res) => {
     try {

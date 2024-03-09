@@ -27,11 +27,11 @@ app.use(morgan('dev'));
 // const userRoutes = require('./Routes/task.routes');
 // app.use('/task',userRoutes);
 
-// const userRoutes = require('./Routes/user.routes');
-// app.use('/api/user',userRoutes);
+const userRoutes = require('./Routes/user.routes');
+app.use('/api/user',userRoutes);
 
-const productRoutes = require('./Routes/product1.routes');
-app.use('/api/product',productRoutes);
+// const productRoutes = require('./Routes/product1.routes');
+// app.use('/api/product',productRoutes);
 
 app.listen(port, () => {
     console.log(`server start at http:/localhost:2000`);

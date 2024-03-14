@@ -1,48 +1,79 @@
-const products = require('../public/products.json');
+const Products = require('../model/product.model');
 
-
-exports.addproducts = (req,res) =>{
-    // console.log(req.body);
-    const product =req.body;
-    products.push(product);
-    // products.push({...req.body});
-    res.status(201).json({message: 'Product is added Succesfuly'}); 
+exports.addProduct = async (req,res) => {
+    try {
+        const {title,description,price,category} = req.body;
+        // console.log(req.body);
+        
+        let newProduct = await Products.create({
+            title,
+            description,
+            price,
+            category
+        });
+        newProduct.save();
+        res.status(201).json({Products: newProduct, message: 'New Product is Added'});
+    
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: 'Internal server error'});
+    }
 };
 
-exports.getAllProducts = (req,res) => {
-    res.status(200).json(products);
+exports.getAllProduct = async (req,res) => {
+    try {
+        let products = await Products.find({isDelete: false});
+        res.status(201).json(products);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: 'Internal server error'});
+    }
 };
 
-exports.getProduct = (req,res) => {
-    const id = +req.query.id;
-    //console.log(id);
-    let product = products.find((item)=> item.id === id)
-    res.status(200).json(product);
-};  
-
-exports.replaceProduct = (req,res) =>{
-    const id = +req.query.id ;
-    let productIndex = products.findIndex((item) => item.id === id);
-    let product = products[productIndex];
-    products.splice(productIndex, 1, {...req.body});
-    // console.log(product);
-    res.status(200).json({message: 'Product Replace succesfully.....'});
+exports.getProduct = async (req,res) => {
+    try {
+        let ProductId = req.query.ProductId;
+        // console.log({msg:ProductId});
+        let product = await Products.findOne({_id: ProductId, isDelete:false });
+        if(!product) {
+            return res.status(404).json({message:'User not found'});
+        }
+        res.status(200).json(product);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: 'Internal Server Error'});
+    }
 };
 
-exports.updateProduct = (req,res) => {
-    const id = +req.query.id;
-    let productIndex = products.findIndex((item) => item.id === id);
-    let product = products[productIndex];
-    let item = products.splice(productIndex, 1, {...product, ...req.body});
-    // console.log(product);
-    res.status(200).json({message: 'product update succesfully.....'});
+exports.updateProduct = async (req,res) => {
+    try {
+        let ProductId = req.query.ProductId;
+        let product = await Products.findById(ProductId);
+        if(!product){
+            return res.status(404).json({message: 'User not found'});
+        }
+        //product = await Products.findByidAndUpdate(prod1._id, {$set: {req.body}, {new: true}});
+        product = await Products.findOneAndUpdate({_id:product._id}, { $set: {...req.body}},{new: true});
+        res.status(200).json({product, message:'Product Updated...'});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: 'Internal Server Error'});
+    }
+
 };
 
-exports.deleteProduct = (req,res) => {
-    const id = +req.query.id;
-    let productIndex = products.findIndex((item) => item.id === id);
-    let product = products[productIndex];
-    let item = products.splice(productIndex, 1);
-    // console.log(product);
-    res.status(200).json({message: 'product Delete succesfully.....'})
-};
+exports.deleteProduct = async (req,res) => {
+    try {
+        const ProductId = req.query.ProductId;
+        let product = await Products.findById(ProductId);
+        if(!product){
+            return res.status(404).json({message: 'User not found'});
+        }
+        // product = await Products.findOneAndDelete(product._id);
+        product = await Products.findOneAndUpdate({_id:product._id}, {isDelete: true}, { new: true});
+        res.status(200).json({product,message:'User Deleted...'});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message:'Internal Server Error'});
+    }
+    };

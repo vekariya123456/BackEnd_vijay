@@ -1,5 +1,6 @@
 const Cart = require('../model/cart.model');
 
+// ADD CART
 exports.addToCart = async (req,res) => {
     try {
         let cart = await Cart.findOne({
@@ -33,6 +34,7 @@ exports.getAllCart = async (req, res) => {
       }  
 };
 
+// GET SPECIFIC CART
 exports.getCart = async (req,res) => {
     try {
         let cart = await Cart.findOne({_id: req.query.cartId, isDelete: false});
@@ -46,3 +48,21 @@ exports.getCart = async (req,res) => {
         res.status(500).json({message: 'Internal Server Error'});  
     }
 };
+
+//UPDATE CART
+
+exports.updateCart = async (req, res) => {
+    try {
+        let cartId = req.query.cartId;
+        let cart = await Cart.findById(cartId);
+        if(!cart) {
+            return res.status(404).json({message:'Cart not Found'});
+        };
+        cart = await Cart.findOneAndUpdate(cart._id, {$set: {...req.body}}, {new: true});
+        res.status(200).json({cart, message: 'Cart Updated...'});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: 'Internal Server Error'});  
+    }
+};
+
